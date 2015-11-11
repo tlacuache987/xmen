@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:jaxrs="http://cxf.apache.org/jaxrs" xmlns:util="http://www.springframework.org/schema/util"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.2.xsd
+		http://cxf.apache.org/jaxrs http://cxf.apache.org/schemas/jaxrs.xsd
+		http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util-4.2.xsd">
+
+	<context:component-scan base-package="mx.com.mercadolibre.xmen.ws" />
+
+	<bean id="jaxbProvider" class="org.apache.cxf.jaxrs.provider.JAXBElementProvider">
+		<property name="marshallerProperties" ref="propertiesMap" />
+		<property name="enableBuffering" value="true" />
+	</bean>
+
+	<util:map id="propertiesMap">
+		<entry key="jaxb.formatted.output">
+			<value type="java.lang.Boolean">true</value>
+		</entry>
+	</util:map>
+
+	<bean id="jsonProvider" class="org.codehaus.jackson.jaxrs.JacksonJaxbJsonProvider">
+		<property name="mapper" ref="jacksonMapper" />
+	</bean>
+
+	<bean id="jacksonMapper" class="org.codehaus.jackson.map.ObjectMapper" />
+
+	<jaxrs:server id="xmen-rest-services" address="/v01">
+
+		<jaxrs:providers>
+			<ref bean="jsonProvider" />
+			<ref bean="jaxbProvider" />
+
+			<ref bean="runtimeExceptionProvider" />
+		</jaxrs:providers>
+
+		<jaxrs:serviceBeans>
+			<ref bean="mutant-service-restfull" />
+			<ref bean="dnaSequence-service-restless" />
+		</jaxrs:serviceBeans>
+	</jaxrs:server>
+
+</beans>

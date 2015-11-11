@@ -1,25 +1,21 @@
 package mx.com.mercadolibre.xmen.core.dna;
 
-import lombok.Data;
+import lombok.Getter;
 
-@Data
 public class DNA {
-	private String[] dnaSequence;
+	private @Getter String[] dnaSequence;
+	private @Getter char[][] dnaMatrix;
 
-	public char[][] getDnaMatrix() {
-		char[][] a = new char[dnaSequence.length][dnaSequence[0].length()];
+	public DNA(String[] dnaSequence) {
+		this.dnaSequence = dnaSequence;
+		this.generateDnaMatrix();
+	}
 
-		for (int i = 0; i < dnaSequence.length; i++) {
+	private void generateDnaMatrix() {
+		dnaMatrix = new char[dnaSequence.length][dnaSequence[0].length()];
 
-			char[] s = dnaSequence[i].toCharArray();
+		for (int i = 0; i < dnaSequence.length; i++)
+			dnaMatrix[i] = dnaSequence[i].toCharArray();
 
-			for (int j = 0; j < s.length; j++) {
-				System.out.print(s[j] + " ");
-
-				a[i][j] = s[j];
-			}
-			System.out.println();
-		}
-		return a;
 	}
 }

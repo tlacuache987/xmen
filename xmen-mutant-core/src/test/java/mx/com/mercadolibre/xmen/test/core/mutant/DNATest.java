@@ -4,26 +4,31 @@ import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
+import lombok.extern.slf4j.Slf4j;
 import mx.com.mercadolibre.xmen.core.dna.DNA;
 
+@Slf4j
 public class DNATest {
 
-	private DNA dna = new DNA();
+	private DNA dna;
 
 	@Before
 	public void setUp() {
-		Assert.assertNotNull(dna);
+		Assert.assertNull(dna);
 	}
 
 	@Test
 	public void getDnaMatrixTest() {
 
+		log.info("running getDnaMatrixTest");
+		log.info("-------------------------------------------------------");
+
 		String[] dnaSequence = { "ATGCGA", "CAGTGC", "TTATGT", "AGAAGG",
 				"CCCCTA", "TCACTG" };
 
-		dna.setDnaSequence(dnaSequence);
+		this.dna = new DNA(dnaSequence);
 
-		char[][] dnaMatrix = dna.getDnaMatrix();
+		char[][] dnaMatrix = this.dna.getDnaMatrix();
 
 		int i = 0;
 		for (char[] currSequence : dnaMatrix) {
@@ -33,6 +38,9 @@ public class DNATest {
 				Assert.fail("The sequence String not match.");
 			}
 		}
+
+		log.info("finalize getDnaMatrixTest");
+		log.info("-------------------------------------------------------\n");
 
 	}
 }
