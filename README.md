@@ -13,7 +13,7 @@ Requirements:
 3. Maven 3.x
 3. Lombok library (www.projectlombok.org) (only if you want to import the maven project into your favorite IDE)
 
-Installation:
+Installation:<br />
 1. clone this repo. <br />
 2. get inside xmen folder<br />
 3. open a terminal and compile using command: mvn clean install<br />
